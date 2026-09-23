@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="author" content="Andrew Pan" />
+    <meta
+      name="description"
+      content="A flashcard app to help you study and memorize information."
+    />
+    <meta
+      name="keywords"
+      content="study aids, flashcards, learning materials"
+    />
+    <title>Flash Cards App</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="stylesheet" href="assets/vendor/normalize.css" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+  </head>
+  <body class="page">
+    <header class="header">
+      <h1 class="header__title">
+        <a class="header__link" href="#home">Flash Cards</a>
+      </h1>
+      <nav class="nav">
+        <ul class="nav__links">
+          <li><a href="#home" class="nav__link">My Decks</a></li>
+          <li><a href="#about" class="nav__link">About</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main class="page__main-content">
+      <section class="decks" id="home">
+        <h2 class="decks__title">My Decks</h2>
+        <ul class="decks__list">
+          <template id="deck-template">
+            <li class="deck">
+              <!-- Empty href; JS will dynamically assign #carousel/${item.id} -->
+              <a class="deck__link"></a>
+              <h3 class="deck__title"></h3>
+              <div class="deck__row">
+                <p class="deck__count"></p>
+                <button
+                  class="deck__delete"
+                  type="button"
+                  aria-label="Delete this deck"
+                ></button>
+              </div>
+            </li>
+          </template>
+          <li><button class="decks__new-deck-btn">+ New Deck</button></li>
+        </ul>
+      </section>
+
+      <section class="carousel" id="carousel">
+        <h2 class="carousel__title"></h2>
+        <div class="carousel__container">
+          <ul class="carousel__cards">
+            <li class="carousel__card">
+              <div class="carousel__main-row">
+                <button
+                  class="carousel__btn carousel__btn_type_left"
+                  type="button"
+                  aria-label="Previous card"
+                ></button>
+                <p class="carousel__card-text"></p>
+                <button
+                  class="carousel__btn carousel__btn_type_right"
+                  type="button"
+                  aria-label="Next card"
+                ></button>
+              </div>
+              <button
+                class="carousel__btn carousel__btn_type_flip"
+                type="button"
+                aria-label="Flip card"
+              ></button>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="about" id="about" hidden>
+        <h2 class="about__title">About</h2>
+        <p class="about__text">
+          Flash Cards is a study app for reviewing deck contents and mastering
+          concepts.
+        </p>
+      </section>
+
+      <section class="not-found" id="not-found" hidden>
+        <h2 class="not-found__title">404</h2>
+        <p class="not-found__text">Not Found</p>
+      </section>
+    </main>
+    <footer class="footer">
+      <p class="footer__text">&copy; 2024 Flashcards Andrew Pan</p>
+    </footer>
+    <script type="module" src="assets/js/index.js"></script>
+  </body>
+</html>
