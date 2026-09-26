@@ -2,7 +2,7 @@ import { decks } from "./decks.js";
 import { hexToString, removeColorClasses } from "./colors.js";
 import { renderCarouselView } from "./carousel.js";
 
-const deckTemplate = document.querySelector("#deck-template");
+const deckTemplate = document.querySelector("#card-template");
 const deckList = document.querySelector(".gallery__list");
 const homeSection = document.querySelector("#home");
 const carouselSection = document.querySelector("#carousel");
@@ -22,7 +22,6 @@ const sections = [
 function createDeckEl(item) {
   const deckClone = deckTemplate.content.cloneNode(true);
   const deckEl = deckClone.querySelector(".card");
-  const deckLink = deckClone.querySelector(".card__link");
   const deckTitle = deckClone.querySelector(".card__title");
   const deckCount = deckClone.querySelector(".card__count");
   const deleteButton = deckClone.querySelector(".card__delete");
@@ -31,11 +30,13 @@ function createDeckEl(item) {
   removeColorClasses(deckEl);
   deckEl.classList.add(`card_color_${colorName}`);
 
-  // Set explicit hash including item ID
-  deckLink.href = `#carousel/${item.id}`;
-
   deckTitle.textContent = item.name;
   deckCount.textContent = `${item.cards.length}`;
+  deckCount.setAttribute("aria-label", `Open ${item.name} flashcard deck`);
+
+  deckCount?.addEventListener("click", () => {
+    window.location.hash = `#carousel/${item.id}`;
+  });
 
   deleteButton?.addEventListener("click", () => {
     deckEl.remove();
