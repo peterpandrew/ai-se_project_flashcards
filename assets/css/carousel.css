@@ -82,7 +82,7 @@
   background-color: transparent;
 }
 
-.deck__delete {
+.card__delete {
   content: "";
   display: block;
   width: 24px;
