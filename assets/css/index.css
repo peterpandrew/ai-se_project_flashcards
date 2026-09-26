@@ -1,9 +1,10 @@
 @import url("../vendor/normalize.css");
 @import url("./page.css");
+@import url("./card.css");
+@import url("./gallery.css");
 @import url("./carousel.css");
 @import url("./about.css");
 @import url("./header.css");
-@import url("./gallery.css");
 
 [hidden] {
   display: none !important;
