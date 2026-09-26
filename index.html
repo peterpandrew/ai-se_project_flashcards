@@ -31,13 +31,15 @@
       <section class="gallery" id="home">
         <h2 class="gallery__title">My Decks</h2>
         <ul class="gallery__list">
-          <template id="deck-template">
+          <template id="card-template">
             <li class="card">
-              <!-- Empty href; JS will dynamically assign #carousel/${item.id} -->
-              <a class="card__link"></a>
               <h3 class="card__title"></h3>
               <div class="card__row">
-                <p class="card__count"></p>
+                <button
+                  class="card__count"
+                  type="button"
+                  aria-label="Open this flashcard deck"
+                ></button>
                 <button
                   class="card__delete"
                   type="button"
@@ -86,11 +88,43 @@
         </p>
       </section>
 
+      <section id="deck-view" class="gallery">
+        <div class="gallery__header">
+          <h2 class="gallery__title"></h2>
+          <button type="button" class="gallery__practice-btn">Practice</button>
+        </div>
+        <div class="wrapping-row">
+          <ul class="gallery__list wrapping-row__display-contents"></ul>
+          <button type="button" class="gallery__new-card-btn">
+            + New Card
+          </button>
+        </div>
+      </section>
+
+      <template id="card-template">
+        <li class="card">
+          <h3 class="card__title"></h3>
+          <div class="card__row">
+            <button
+              type="button"
+              class="card__count"
+              aria-label="Open this flashcard deck"
+            ></button>
+            <button
+              type="button"
+              aria-label="Delete this deck"
+              class="card__delete"
+            ></button>
+          </div>
+        </li>
+      </template>
+
       <section class="not-found" id="not-found" hidden>
         <h2 class="not-found__title">404</h2>
         <p class="not-found__text">Not Found</p>
       </section>
     </main>
+
     <footer class="footer">
       <p class="footer__text">&copy; 2024 Flashcards Andrew Pan</p>
     </footer>
