@@ -3,7 +3,7 @@ import { hexToString, removeColorClasses } from "./colors.js";
 import { renderCarouselView } from "./carousel.js";
 
 const deckTemplate = document.querySelector("#deck-template");
-const deckList = document.querySelector(".decks__list");
+const deckList = document.querySelector(".gallery__list");
 const homeSection = document.querySelector("#home");
 const carouselSection = document.querySelector("#carousel");
 const aboutSection = document.querySelector("#about");
@@ -21,15 +21,15 @@ const sections = [
 
 function createDeckEl(item) {
   const deckClone = deckTemplate.content.cloneNode(true);
-  const deckEl = deckClone.querySelector(".deck");
-  const deckLink = deckClone.querySelector(".deck__link");
-  const deckTitle = deckClone.querySelector(".deck__title");
-  const deckCount = deckClone.querySelector(".deck__count");
-  const deleteButton = deckClone.querySelector(".deck__delete");
+  const deckEl = deckClone.querySelector(".card");
+  const deckLink = deckClone.querySelector(".card__link");
+  const deckTitle = deckClone.querySelector(".card__title");
+  const deckCount = deckClone.querySelector(".card__count");
+  const deleteButton = deckClone.querySelector(".card__delete");
   const colorName = hexToString(item.color) || "green";
 
   removeColorClasses(deckEl);
-  deckEl.classList.add(`deck_color_${colorName}`);
+  deckEl.classList.add(`card_color_${colorName}`);
 
   // Set explicit hash including item ID
   deckLink.href = `#carousel/${item.id}`;
@@ -95,7 +95,7 @@ function renderView() {
 }
 
 if (deckTemplate && deckList) {
-  deckList.querySelector(".deck")?.remove();
+  deckList.querySelector(".card")?.remove();
   decks.forEach(renderDeckEl);
 }
 
