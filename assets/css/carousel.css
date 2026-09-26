@@ -1,0 +1,171 @@
+.carousel__card_color_green {
+  background-color: #64d583;
+}
+
+.carousel__card_color_blue {
+  background-color: #91a8f9;
+}
+
+.carousel__card_color_pink {
+  background-color: #ee92d7;
+}
+
+.carousel__card_color_purple {
+  background-color: #aa8ef0;
+}
+
+.carousel__card_color_orange {
+  background-color: #ee955e;
+}
+
+.carousel__card_color_yellow {
+  background-color: #f5d770;
+}
+
+.carousel__card_color_white {
+  background-color: #fff;
+}
+
+.carousel__btn {
+  background-color: #fff;
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  background-repeat: no-repeat;
+  background-position: center;
+  border: none;
+  margin: 0;
+  display: flex;
+}
+
+.carousel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.carousel__btn_type_left::before {
+  content: "";
+  display: block;
+  width: 44px;
+  height: 44px;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url("../images/left.svg");
+  opacity: 50%;
+  background-color: transparent;
+}
+
+.carousel__btn_type_right::before {
+  content: "";
+  display: block;
+  width: 44px;
+  height: 44px;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url("../images/right.svg");
+  opacity: 50%;
+  background-color: transparent;
+}
+
+.carousel__btn_type_flip::before {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url("../images/flip.svg");
+  opacity: 50%;
+  background-color: transparent;
+}
+
+.deck__delete {
+  content: "";
+  display: block;
+  width: 24px;
+  height: 24px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url("../images/delete.svg");
+  opacity: 50%;
+  background-color: transparent;
+  border: none;
+}
+
+.carousel__btn:hover {
+  cursor: pointer;
+}
+
+.carousel__cards {
+  padding: 0;
+  margin: 0;
+}
+
+.carousel__btn_type_left:hover::before {
+  opacity: 100%;
+}
+
+.carousel__btn_type_flip:hover::before {
+  opacity: 100%;
+}
+
+.carousel__btn_type_right:hover::before {
+  opacity: 100%;
+}
+
+.carousel__btn_disabled::before {
+  opacity: 20%;
+}
+
+.carousel__btn_disabled:hover::before {
+  opacity: 20%;
+  cursor: default;
+}
+
+.carousel__main-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.carousel__card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.carousel__card-text {
+  max-width: 440px;
+  width: 100%;
+  height: 300px;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.2;
+  border-radius: 20px;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+}
+
+.carousel__btn_type_left {
+  margin-right: 20px;
+}
+
+.carousel__btn_type_right {
+  margin-left: 20px;
+}
+
+.carousel__btn_type_flip {
+  margin-top: 24px;
+}

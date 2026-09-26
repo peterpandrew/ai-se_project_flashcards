@@ -1,0 +1,115 @@
+.decks__list {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: flex-start;
+}
+
+.deck__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.decks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+
+.deck__title {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.deck__count {
+  font-size: 16px;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.decks__new-deck-btn {
+  cursor: pointer;
+  max-width: 325px;
+  width: 325px;
+  height: 205px;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.2;
+  border-radius: 20px;
+  background-color: #d9d9d9;
+  color: #1a1a1a80;
+  padding: 20px;
+  border: none;
+}
+
+.decks__new-deck-btn:hover {
+  background-color: #c5c5c5;
+  color: #1a1a1a;
+}
+
+.deck {
+  position: relative;
+  width: 325px;
+  height: 205px;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.2;
+  padding: 20px 20px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+.deck__link {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.deck:hover {
+  opacity: 100%;
+}
+
+.deck_color_green {
+  background-color: #64d583;
+}
+
+.deck_color_blue {
+  background-color: #91a8f9;
+}
+
+.deck_color_pink {
+  background-color: #ee92d7;
+}
+
+.deck_color_purple {
+  background-color: #aa8ef0;
+}
+
+.deck_color_orange {
+  background-color: #ee955e;
+}
+
+.deck_color_yellow {
+  background-color: #f5d770;
+}
+
+.deck__delete {
+  z-index: 2;
+}
+
+.deck__delete:hover {
+  opacity: 1;
+  cursor: pointer;
+}
