@@ -41,7 +41,7 @@
                   aria-label="Open this flashcard deck"
                 ></button>
                 <button
-                  class="card__delete"
+                  class="card__btn card__btn_type_delete"
                   type="button"
                   aria-label="Delete this deck"
                 ></button>
@@ -89,6 +89,16 @@
       </section>
 
       <section id="deck-view" class="gallery">
+        <template id="flashcard-template">
+          <li class="card flashcard">
+            <p class="flashcard__text"></p>
+            <button
+              type="button"
+              class="card__btn card__btn_type_flip flashcard__flip-btn"
+              aria-label="Show answer"
+            ></button>
+          </li>
+        </template>
         <div class="gallery__header">
           <h2 class="gallery__title"></h2>
           <button type="button" class="gallery__practice-btn">Practice</button>
@@ -100,24 +110,6 @@
           </button>
         </div>
       </section>
-
-      <template id="card-template">
-        <li class="card">
-          <h3 class="card__title"></h3>
-          <div class="card__row">
-            <button
-              type="button"
-              class="card__count"
-              aria-label="Open this flashcard deck"
-            ></button>
-            <button
-              type="button"
-              aria-label="Delete this deck"
-              class="card__delete"
-            ></button>
-          </div>
-        </li>
-      </template>
 
       <section class="not-found" id="not-found" hidden>
         <h2 class="not-found__title">404</h2>
