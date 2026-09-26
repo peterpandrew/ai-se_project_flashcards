@@ -6,6 +6,11 @@ function getCarouselTitleString(deck, cardIndex) {
 
 function renderCarouselView(deck) {
   const carousel = document.querySelector(".carousel");
+  const deckView = document.querySelector("#deck-view");
+
+  if (deckView) {
+    deckView.hidden = true;
+  }
 
   if (!carousel || !deck) {
     return;
