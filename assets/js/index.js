@@ -2,6 +2,7 @@ import { decks } from "./decks.js";
 import { hexToString, removeColorClasses } from "./colors.js";
 import { renderCarouselView } from "./carousel.js";
 import { renderDeckView } from "./deck-view.js";
+import { openConfirmationModal } from "./confirmation-modal.js";
 
 const deckTemplate = document.querySelector("#card-template");
 const deckList = document.querySelector("#home .gallery__list");
@@ -24,6 +25,17 @@ const sections = [
   notFoundSection,
 ].filter(Boolean);
 
+function showView(currentSection, display) {
+  sections.forEach((section) => {
+    section.style.display = "none";
+    section.hidden = section !== currentSection;
+  });
+
+  if (currentSection) {
+    currentSection.style.display = display;
+  }
+}
+
 practiceButton?.addEventListener("click", () => {
   if (currentDeck) {
     window.location.hash = `#carousel/${currentDeck.id}`;
@@ -45,13 +57,18 @@ function createDeckEl(item) {
   deckCount.textContent = `${item.cards.length}`;
   deckCount.setAttribute("aria-label", `Open ${item.name} flashcard deck`);
 
-  deckCount?.addEventListener("click", () => {
+  deckEl.addEventListener("click", () => {
     currentDeck = item;
-    window.location.hash = `#deck/${item.id}`;
+    window.location.hash = `#carousel/${item.id}`;
   });
 
-  deleteButton?.addEventListener("click", () => {
-    deckEl.remove();
+  deleteButton?.addEventListener("click", (evt) => {
+    evt.stopPropagation();
+    openConfirmationModal(() => {
+      const deckIndex = decks.indexOf(item);
+      if (deckIndex !== -1) decks.splice(deckIndex, 1);
+      deckEl.remove();
+    });
   });
 
   return deckClone;
@@ -70,23 +87,14 @@ function renderView() {
     const deck = decks.find((item) => item.id === deckId);
 
     if (!deck) {
-      sections.forEach((section) => {
-        section.hidden = section !== notFoundSection;
-        if (section === carouselSection) section.style.display = "none";
-      });
+      showView(notFoundSection, "block");
       return;
     }
 
     currentDeck = deck;
     renderDeckView(deck);
     mainContent?.classList.remove("page__main-content_location_carousel");
-    if (deckViewSection) deckViewSection.style.display = "block";
-    sections.forEach((section) => {
-      const isDeckView = section === deckViewSection;
-      section.hidden = !isDeckView;
-      if (section === carouselSection) section.style.display = "none";
-      if (section === notFoundSection) section.hidden = true;
-    });
+    showView(deckViewSection, "block");
     window.scrollTo(0, 0);
     return;
   } else if (currentHash.startsWith("#deck/")) {
@@ -94,22 +102,14 @@ function renderView() {
     const deck = decks.find((item) => item.id === deckId);
 
     if (!deck) {
-      sections.forEach((section) => {
-        section.hidden = section !== notFoundSection;
-        if (section === carouselSection) section.style.display = "none";
-        if (section === deckViewSection) section.hidden = true;
-      });
+      showView(notFoundSection, "block");
       return;
     }
 
     currentDeck = deck;
     renderDeckView(deck);
     mainContent?.classList.remove("page__main-content_location_carousel");
-    sections.forEach((section) => {
-      section.hidden = section !== deckViewSection;
-      if (section === carouselSection) section.style.display = "none";
-    });
-    if (deckViewSection) deckViewSection.style.display = "block";
+    showView(deckViewSection, "block");
     window.scrollTo(0, 0);
     return;
   }
@@ -121,22 +121,13 @@ function renderView() {
     if (!deck) {
       if (header) header.hidden = false;
       if (footer) footer.hidden = false;
-      sections.forEach((section) => {
-        section.hidden = section !== notFoundSection;
-        if (section === carouselSection) section.style.display = "none";
-      });
+      showView(notFoundSection, "block");
       return;
     }
 
     renderCarouselView(deck);
     mainContent?.classList.add("page__main-content_location_carousel");
-    if (deckViewSection) deckViewSection.hidden = true;
-
-    sections.forEach((section) => {
-      section.hidden = section !== carouselSection;
-      if (section === deckViewSection) section.hidden = true;
-    });
-    carouselSection.style.display = "flex";
+    showView(carouselSection, "flex");
 
     window.scrollTo(0, 0);
     return;
@@ -151,18 +142,7 @@ function renderView() {
         ? aboutSection
         : notFoundSection;
 
-  if (deckViewSection) deckViewSection.hidden = true;
-  sections.forEach((section) => {
-    const shouldShowDeckView =
-      section === deckViewSection && targetSection === deckViewSection;
-    const shouldShowCurrent = section === targetSection;
-    section.hidden = !shouldShowCurrent && !shouldShowDeckView;
-    if (section === carouselSection) section.style.display = "none";
-    if (section === deckViewSection) section.style.display = "block";
-    if (section === deckViewSection && targetSection !== deckViewSection) {
-      section.hidden = true;
-    }
-  });
+  showView(targetSection, "block");
 }
 
 if (deckTemplate && deckList) {

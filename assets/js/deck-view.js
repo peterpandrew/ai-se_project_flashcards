@@ -1,4 +1,5 @@
 import { hexToString, removeColorClasses } from "./colors.js";
+import { openConfirmationModal } from "./confirmation-modal.js";
 
 function renderDeckView(deck) {
   const deckViewSection = document.querySelector("#deck-view");
@@ -21,6 +22,7 @@ function renderDeckView(deck) {
     const cardElement = cardFragment.querySelector(".flashcard");
     const cardText = cardFragment.querySelector(".flashcard__text");
     const flipButton = cardFragment.querySelector(".flashcard__flip-btn");
+    const deleteButton = cardFragment.querySelector(".flashcard__delete-btn");
     let showingQuestion = true;
 
     function updateFace() {
@@ -40,6 +42,14 @@ function renderDeckView(deck) {
         showingQuestion ? "Show answer" : "Show question",
       );
       updateFace();
+    });
+
+    deleteButton?.addEventListener("click", () => {
+      openConfirmationModal(() => {
+        const cardIndex = deck.cards.indexOf(cardData);
+        if (cardIndex !== -1) deck.cards.splice(cardIndex, 1);
+        cardElement.remove();
+      });
     });
 
     updateFace();
