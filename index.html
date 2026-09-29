@@ -57,7 +57,7 @@
         <div class="carousel__container">
           <ul class="carousel__cards">
             <li class="carousel__card">
-              <div class="carousel__main-row">
+              <div class="carousel__grid">
                 <button
                   class="carousel__btn carousel__btn_type_left"
                   type="button"
@@ -69,12 +69,12 @@
                   type="button"
                   aria-label="Next card"
                 ></button>
+                <button
+                  class="carousel__btn carousel__btn_type_flip"
+                  type="button"
+                  aria-label="Flip card"
+                ></button>
               </div>
-              <button
-                class="carousel__btn carousel__btn_type_flip"
-                type="button"
-                aria-label="Flip card"
-              ></button>
             </li>
           </ul>
         </div>
@@ -92,11 +92,18 @@
         <template id="flashcard-template">
           <li class="card flashcard">
             <p class="flashcard__text"></p>
-            <button
-              type="button"
-              class="card__btn card__btn_type_flip flashcard__flip-btn"
-              aria-label="Show answer"
-            ></button>
+            <div class="flashcard__actions">
+              <button
+                type="button"
+                class="card__btn card__btn_type_delete flashcard__delete-btn"
+                aria-label="Delete this flashcard"
+              ></button>
+              <button
+                type="button"
+                class="card__btn card__btn_type_flip flashcard__flip-btn"
+                aria-label="Show answer"
+              ></button>
+            </div>
           </li>
         </template>
         <div class="gallery__header">
@@ -105,7 +112,10 @@
         </div>
         <div class="wrapping-row">
           <ul class="gallery__list wrapping-row__display-contents"></ul>
-          <button type="button" class="gallery__new-card-btn">
+          <button
+            type="button"
+            class="gallery__new-card-btn gallery__new-card-btn_location_deck-view"
+          >
             + New Card
           </button>
         </div>
@@ -116,6 +126,33 @@
         <p class="not-found__text">Not Found</p>
       </section>
     </main>
+
+    <dialog
+      class="confirmation-modal"
+      id="confirmation-modal"
+      aria-labelledby="confirmation-modal-title"
+    >
+      <h2 class="confirmation-modal__title" id="confirmation-modal-title">
+        Delete this item?
+      </h2>
+      <p class="confirmation-modal__text">This action cannot be undone.</p>
+      <div class="confirmation-modal__actions">
+        <button
+          class="confirmation-modal__button"
+          type="button"
+          data-modal-cancel
+        >
+          Cancel
+        </button>
+        <button
+          class="confirmation-modal__button confirmation-modal__button_type_confirm"
+          type="button"
+          data-modal-confirm
+        >
+          Delete
+        </button>
+      </div>
+    </dialog>
 
     <footer class="footer">
       <p class="footer__text">&copy; 2024 Flashcards Andrew Pan</p>
