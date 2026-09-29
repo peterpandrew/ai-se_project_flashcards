@@ -26,13 +26,18 @@
 
 .card {
   position: relative;
-  width: 325px;
-  height: 205px;
+  width: 100%;
+  max-width: 325px;
+  aspect-ratio: 325 / 205;
   font-size: 24px;
   font-weight: 700;
   line-height: 1.2;
   padding: 20px 20px;
   border-radius: 20px;
+  box-shadow:
+    1px -1px 2px 0px #00000066,
+    1px -1px 2px 0px #ffffffb3 inset,
+    0px 2px 8px 0px #0000001a inset;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -115,5 +120,10 @@
 .flashcard__flip-btn {
   appearance: none;
   -webkit-appearance: none;
+}
+
+.flashcard__actions {
+  display: flex;
   align-self: flex-end;
+  gap: 12px;
 }

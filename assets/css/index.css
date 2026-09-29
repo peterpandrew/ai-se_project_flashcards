@@ -5,7 +5,5 @@
 @import url("./carousel.css");
 @import url("./about.css");
 @import url("./header.css");
-
-[hidden] {
-  display: none !important;
-}
+@import url("./mobile-bar.css");
+@import url("./confirmation-modal.css");

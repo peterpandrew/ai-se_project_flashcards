@@ -49,3 +49,22 @@
   line-height: 1.2;
   margin: 0;
 }
+
+@media (max-width: 600px) {
+  .header {
+    align-items: center;
+    gap: 16px;
+  }
+
+  .header__title {
+    font-size: 20px;
+  }
+
+  .nav__links {
+    gap: 12px;
+  }
+
+  .nav__link {
+    font-size: 14px;
+  }
+}

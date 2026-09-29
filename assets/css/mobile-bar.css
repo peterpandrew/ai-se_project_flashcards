@@ -1,0 +1,73 @@
+@media (max-width: 600px) {
+  .page::after {
+    content: "";
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 10;
+    height: 200px;
+    background: linear-gradient(
+      180deg,
+      rgba(236, 236, 236, 0),
+      rgba(236, 236, 236, 0.94) 70%
+    );
+    backdrop-filter: blur(8px);
+    pointer-events: none;
+  }
+
+  .footer {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 11;
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
+    padding: 16px 20px;
+  }
+
+  .page:has(.page__main-content_location_carousel) .footer {
+    position: static;
+  }
+
+  .footer__text {
+    margin: 0;
+  }
+
+  .gallery__new-card-btn,
+  .gallery__practice-btn {
+    position: fixed;
+    bottom: 96px;
+    z-index: 11;
+  }
+
+  #home .gallery__new-card-btn {
+    right: 20px;
+    left: 20px;
+    width: auto;
+    margin: 0 auto;
+  }
+
+  .gallery__practice-btn {
+    right: 20px;
+    width: calc(50% - 10px - 20px);
+    max-width: 325px;
+    min-width: 0;
+  }
+
+  .gallery__new-card-btn_location_deck-view {
+    left: 20px;
+    right: auto;
+    width: calc(50% - 10px - 20px);
+    margin: 0;
+    background-color: #fff;
+    color: #1a1a1a80;
+  }
+
+  #home .gallery__list {
+    box-sizing: border-box;
+    padding-bottom: 184px;
+  }
+}
