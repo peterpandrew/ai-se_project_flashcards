@@ -27,7 +27,7 @@ const sections = [
 
 function showView(currentSection, display) {
   sections.forEach((section) => {
-    section.style.display = "none";
+    section.style.display = "";
     section.hidden = section !== currentSection;
   });
 
@@ -54,12 +54,13 @@ function createDeckEl(item) {
   deckEl.classList.add(`card_color_${colorName}`);
 
   deckTitle.textContent = item.name;
-  deckCount.textContent = `${item.cards.length}`;
+  deckCount.textContent = `${item.cards.length} cards`; // Standardized label layout text
   deckCount.setAttribute("aria-label", `Open ${item.name} flashcard deck`);
 
-  deckEl.addEventListener("click", () => {
+  deckEl.addEventListener("click", (evt) => {
+    if (evt.target.classList.contains("card__btn_type_delete")) return;
     currentDeck = item;
-    window.location.hash = `#carousel/${item.id}`;
+    window.location.hash = `#deck/${item.id}`;
   });
 
   deleteButton?.addEventListener("click", (evt) => {
@@ -76,29 +77,24 @@ function createDeckEl(item) {
 
 function renderDeckEl(item) {
   const deckEl = createDeckEl(item);
-  deckList.prepend(deckEl);
+  const newCardBtnItem = deckList.querySelector(
+    "li:has(.gallery__new-card-btn)",
+  );
+  if (newCardBtnItem) {
+    deckList.insertBefore(deckEl, newCardBtnItem);
+  } else {
+    deckList.prepend(deckEl);
+  }
 }
 
 function renderView() {
   const currentHash = window.location.hash || "#home";
 
-  if (currentHash.startsWith("#deck-view")) {
+  if (
+    currentHash.startsWith("#deck-view") ||
+    currentHash.startsWith("#deck/")
+  ) {
     const deckId = currentHash.split("/")[1] || decks[0]?.id;
-    const deck = decks.find((item) => item.id === deckId);
-
-    if (!deck) {
-      showView(notFoundSection, "block");
-      return;
-    }
-
-    currentDeck = deck;
-    renderDeckView(deck);
-    mainContent?.classList.remove("page__main-content_location_carousel");
-    showView(deckViewSection, "block");
-    window.scrollTo(0, 0);
-    return;
-  } else if (currentHash.startsWith("#deck/")) {
-    const deckId = currentHash.split("/")[1];
     const deck = decks.find((item) => item.id === deckId);
 
     if (!deck) {
@@ -146,7 +142,7 @@ function renderView() {
 }
 
 if (deckTemplate && deckList) {
-  deckList.querySelector(".card")?.remove();
+  deckList.querySelectorAll(".card").forEach((el) => el.remove());
   decks.forEach(renderDeckEl);
 }
 
