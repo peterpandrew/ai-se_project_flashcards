@@ -2,23 +2,39 @@
 .not-found {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 20px;
   align-items: flex-start;
   justify-content: center;
   min-height: 200px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .about__title,
 .not-found__title {
   margin: 0;
-  font-size: 40px;
+  font-family: "Inter", sans-serif;
+  font-style: normal;
   font-weight: 700;
-  line-height: 1.2;
+  font-size: 32px;
+  line-height: 100%;
+  color: #1a1a1a;
 }
 
 .about__text,
 .not-found__text {
   margin: 0;
-  font-size: 24px;
-  line-height: 1.4;
+  font-family: "Inter", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 120%;
+  color: #1a1a1a;
+}
+
+@media (max-width: 600px) {
+  .about,
+  .not-found {
+    padding: 0;
+  }
 }

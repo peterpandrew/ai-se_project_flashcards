@@ -6,20 +6,26 @@
 }
 
 .card__title {
-  font-size: 24px;
+  font-family: "Inter", sans-serif;
+  font-style: normal;
   font-weight: 700;
+  font-size: 24px;
   line-height: 1.2;
   margin: 0;
+  color: #1a1a1a;
 }
 
 .card__count {
+  font-family: "Inter", sans-serif;
+  font-style: normal;
+  font-weight: 400;
   font-size: 16px;
   line-height: 1.2;
   margin: 0;
   border: none;
   background: transparent;
   padding: 0;
-  color: inherit;
+  color: #1a1a1a;
   cursor: pointer;
   text-align: left;
 }
@@ -27,25 +33,20 @@
 .card {
   position: relative;
   width: 100%;
-  max-width: 325px;
-  aspect-ratio: 325 / 205;
-  font-size: 24px;
-  font-weight: 700;
-  line-height: 1.2;
-  padding: 20px 20px;
+  max-width: 353px;
+  aspect-ratio: 353 / 205;
+  padding: 20px;
   border-radius: 20px;
+
   box-shadow:
-    1px -1px 2px 0px #00000066,
-    1px -1px 2px 0px #ffffffb3 inset,
-    0px 2px 8px 0px #0000001a inset;
+    0px 2px 8px rgba(0, 0, 0, 0.1),
+    inset -1px 2px 2px rgba(255, 255, 255, 0.7),
+    inset 1px -1px 2px rgba(0, 0, 0, 0.25);
+
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   box-sizing: border-box;
-}
-
-.card:hover {
-  opacity: 100%;
 }
 
 .card_color_green {
@@ -58,18 +59,6 @@
 
 .card_color_pink {
   background-color: #ee92d7;
-}
-
-.card_color_purple {
-  background-color: #aa8ef0;
-}
-
-.card_color_orange {
-  background-color: #ee955e;
-}
-
-.card_color_yellow {
-  background-color: #f5d770;
 }
 
 .card_color_white {
@@ -86,7 +75,7 @@
   background-repeat: no-repeat;
   background-position: center;
   padding: 0;
-  opacity: 50%;
+  opacity: 0.5;
   cursor: pointer;
 }
 
@@ -96,34 +85,4 @@
 
 .card__btn_type_flip {
   background-image: url("../images/flip.svg");
-}
-
-.card__btn:hover {
-  opacity: 1;
-}
-
-.flashcard {
-  overflow: hidden;
-  gap: 12px;
-}
-
-.flashcard__text {
-  display: flex;
-  flex: 1;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  margin: 0;
-  text-align: center;
-}
-
-.flashcard__flip-btn {
-  appearance: none;
-  -webkit-appearance: none;
-}
-
-.flashcard__actions {
-  display: flex;
-  align-self: flex-end;
-  gap: 12px;
 }
