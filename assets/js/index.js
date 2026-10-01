@@ -17,6 +17,11 @@ const mainContent = document.querySelector(".page__main-content");
 const header = document.querySelector(".header");
 const footer = document.querySelector(".footer");
 
+const footerMobileActions = document.querySelector(".footer__mobile-actions");
+const footerPracticeBtn = document.querySelector(
+  ".gallery__practice-btn_location_footer",
+);
+
 const sections = [
   homeSection,
   deckViewSection,
@@ -36,11 +41,26 @@ function showView(currentSection, display) {
   }
 }
 
-practiceButton?.addEventListener("click", () => {
+function updateMobileFooter(viewMode) {
+  if (!footerMobileActions) return;
+
+  if (viewMode === "deck") {
+    footerMobileActions.classList.add("footer__mobile-actions_deck");
+    footerMobileActions.classList.remove("footer__mobile-actions_home");
+  } else {
+    footerMobileActions.classList.add("footer__mobile-actions_home");
+    footerMobileActions.classList.remove("footer__mobile-actions_deck");
+  }
+}
+
+function startPractice() {
   if (currentDeck) {
     window.location.hash = `#carousel/${currentDeck.id}`;
   }
-});
+}
+
+practiceButton?.addEventListener("click", startPractice);
+footerPracticeBtn?.addEventListener("click", startPractice);
 
 function createDeckEl(item) {
   const deckClone = deckTemplate.content.cloneNode(true);
@@ -54,7 +74,7 @@ function createDeckEl(item) {
   deckEl.classList.add(`card_color_${colorName}`);
 
   deckTitle.textContent = item.name;
-  deckCount.textContent = `${item.cards.length} cards`; // Standardized label layout text
+  deckCount.textContent = `${item.cards.length} cards`;
   deckCount.setAttribute("aria-label", `Open ${item.name} flashcard deck`);
 
   deckEl.addEventListener("click", (evt) => {
@@ -98,6 +118,7 @@ function renderView() {
     const deck = decks.find((item) => item.id === deckId);
 
     if (!deck) {
+      updateMobileFooter("home");
       showView(notFoundSection, "block");
       return;
     }
@@ -106,6 +127,7 @@ function renderView() {
     renderDeckView(deck);
     mainContent?.classList.remove("page__main-content_location_carousel");
     showView(deckViewSection, "block");
+    updateMobileFooter("deck");
     window.scrollTo(0, 0);
     return;
   }
@@ -117,6 +139,7 @@ function renderView() {
     if (!deck) {
       if (header) header.hidden = false;
       if (footer) footer.hidden = false;
+      updateMobileFooter("home");
       showView(notFoundSection, "block");
       return;
     }
@@ -124,6 +147,7 @@ function renderView() {
     renderCarouselView(deck);
     mainContent?.classList.add("page__main-content_location_carousel");
     showView(carouselSection, "flex");
+    updateMobileFooter("deck");
 
     window.scrollTo(0, 0);
     return;
@@ -139,6 +163,7 @@ function renderView() {
         : notFoundSection;
 
   showView(targetSection, "block");
+  updateMobileFooter("home");
 }
 
 if (deckTemplate && deckList) {
