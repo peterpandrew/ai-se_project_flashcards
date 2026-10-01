@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="author" content="Andrew Pan" />
     <meta
       name="description"
@@ -27,28 +28,38 @@
         </ul>
       </nav>
     </header>
+
     <main class="page__main-content">
       <section class="gallery" id="home">
-        <h2 class="gallery__title">My Decks</h2>
+        <div class="gallery__header">
+          <h2 class="gallery__title">My Decks</h2>
+        </div>
+
+        <template id="card-template">
+          <li class="card">
+            <h3 class="card__title"></h3>
+            <div class="card__row">
+              <button
+                class="card__count"
+                type="button"
+                aria-label="Open this flashcard deck"
+              ></button>
+              <button
+                class="card__btn card__btn_type_delete"
+                type="button"
+                aria-label="Delete this deck"
+              ></button>
+            </div>
+          </li>
+        </template>
+
         <ul class="gallery__list">
-          <template id="card-template">
-            <li class="card">
-              <h3 class="card__title"></h3>
-              <div class="card__row">
-                <button
-                  class="card__count"
-                  type="button"
-                  aria-label="Open this flashcard deck"
-                ></button>
-                <button
-                  class="card__btn card__btn_type_delete"
-                  type="button"
-                  aria-label="Delete this deck"
-                ></button>
-              </div>
-            </li>
-          </template>
-          <li><button class="gallery__new-card-btn">+ New Card</button></li>
+          <!-- Rendered Deck Cards go here -->
+          <li>
+            <button type="button" class="gallery__new-card-btn">
+              + New Card
+            </button>
+          </li>
         </ul>
       </section>
 
@@ -89,6 +100,11 @@
       </section>
 
       <section id="deck-view" class="gallery">
+        <div class="gallery__header">
+          <h2 class="gallery__title"></h2>
+          <button type="button" class="gallery__practice-btn">Practice</button>
+        </div>
+
         <template id="flashcard-template">
           <li class="card flashcard">
             <p class="flashcard__text"></p>
@@ -106,19 +122,10 @@
             </div>
           </li>
         </template>
-        <div class="gallery__header">
-          <h2 class="gallery__title"></h2>
-          <button type="button" class="gallery__practice-btn">Practice</button>
-        </div>
-        <div class="wrapping-row">
-          <ul class="gallery__list wrapping-row__display-contents"></ul>
-          <button
-            type="button"
-            class="gallery__new-card-btn gallery__new-card-btn_location_deck-view"
-          >
-            + New Card
-          </button>
-        </div>
+
+        <ul class="gallery__list">
+          <!-- Flashcards list -->
+        </ul>
       </section>
 
       <section class="not-found" id="not-found" hidden>
@@ -155,8 +162,25 @@
     </dialog>
 
     <footer class="footer">
-      <p class="footer__text">&copy; 2024 Flashcards Andrew Pan</p>
+      <div class="footer__mobile-actions">
+        <button
+          type="button"
+          class="gallery__new-card-btn gallery__new-card-btn_location_footer"
+        >
+          + New Card
+        </button>
+        <button
+          type="button"
+          class="gallery__practice-btn gallery__practice-btn_location_footer"
+        >
+          Practice
+        </button>
+      </div>
+      <p class="footer__text" style="display: block; color: #666666">
+        &copy; 2024 Flashcards Andrew Pan
+      </p>
     </footer>
+
     <script type="module" src="assets/js/index.js"></script>
   </body>
 </html>
