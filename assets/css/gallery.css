@@ -1,17 +1,24 @@
-.gallery__list {
-  font-size: 24px;
-  font-weight: 700;
-  line-height: 1.2;
+/* GLOBAL PAGE LAYOUT - Keeps footer anchored at the bottom */
+html,
+body {
+  height: 100%;
   margin: 0;
   padding: 0;
-  list-style-type: none;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 325px), 325px));
-  gap: 20px;
-  justify-content: start;
-  width: 100%;
 }
 
+.page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.page__main-content {
+  flex: 1 0 auto;
+}
+
+/* DESKTOP BASE STYLES */
 .gallery {
   display: flex;
   flex-direction: column;
@@ -34,7 +41,47 @@
   margin: 0;
 }
 
-.gallery__practice-btn,
+/* Practice Button (Desktop View) */
+.gallery__practice-btn {
+  appearance: none;
+  -webkit-appearance: none;
+  box-sizing: border-box;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.2;
+  border-radius: 20px;
+  border: none;
+  background-color: #d9d9d9;
+  color: rgba(26, 26, 26, 0.5);
+  padding: 16px 24px;
+  min-width: 140px;
+  text-align: center;
+}
+
+.gallery__practice-btn:hover {
+  background-color: #c5c5c5;
+  color: #1a1a1a;
+}
+
+/* Deck Cards Grid (Desktop View) */
+.gallery__list {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(325px, 1fr));
+  gap: 20px;
+  justify-content: start;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* New Card Button (Desktop View) */
 .gallery__new-card-btn {
   appearance: none;
   -webkit-appearance: none;
@@ -47,32 +94,12 @@
   border-radius: 20px;
   border: none;
   background-color: #d9d9d9;
-  color: #1a1a1a80;
+  color: rgba(26, 26, 26, 0.5);
   padding: 20px;
   text-align: center;
-}
-
-.gallery__practice-btn {
-  min-width: 140px;
-  padding: 16px 24px;
-}
-
-.gallery__new-card-btn {
   max-width: 325px;
   width: 100%;
   aspect-ratio: 325 / 205;
-  align-self: flex-start;
-}
-
-.gallery__practice-btn:hover {
-  background-color: #c5c5c5;
-  background-image: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.16),
-    rgba(0, 0, 0, 0.04)
-  );
-  background-blend-mode: overlay;
-  color: #1a1a1a;
 }
 
 .gallery__new-card-btn:hover {
@@ -80,34 +107,158 @@
   color: #1a1a1a;
 }
 
-.wrapping-row {
+/* FOOTER BASE STYLES */
+.footer {
+  flex-shrink: 0;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   align-items: center;
-  gap: 20px;
   width: 100%;
+  padding: 20px;
+  text-align: center;
+  box-sizing: border-box;
 }
 
-.wrapping-row__display-contents {
-  display: contents;
+.footer__text {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  margin: 0;
+  font-size: 14px;
+  color: #666666;
 }
 
-@media (max-width: 600px) {
+/* Hide mobile footer buttons on Desktop */
+.footer__mobile-actions {
+  display: none;
+}
+
+/* MOBILE & TABLET STYLES (768px and smaller) */
+@media (max-width: 768px) {
   .gallery {
-    gap: 24px;
+    gap: 20px;
   }
 
-  .gallery__list {
-    gap: 16px;
+  .gallery__header {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
   }
 
   .gallery__title {
     font-size: 32px;
   }
 
-  .gallery__new-card-btn,
-  .gallery__practice-btn {
-    font-size: 20px;
-    padding: 16px;
+  /* Single column deck list on mobile */
+  .gallery__list {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    justify-items: center;
+    gap: 20px;
+    width: 100%;
+  }
+
+  /* Hide header/grid action buttons on mobile */
+  .gallery__header .gallery__practice-btn,
+  .gallery__list .gallery__new-card-btn {
+    display: none !important;
+  }
+
+  /* Footer layout on mobile */
+  footer.footer,
+  .footer {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 16px !important;
+    padding: 24px 16px 40px 16px !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 120px !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Buttons row placed above footer text */
+  .footer__mobile-actions {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 10px !important;
+    width: 100% !important;
+    max-width: 350px !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+    order: 1 !important;
+  }
+
+  /* Footer notes / copyright text directly below buttons */
+  p.footer__text,
+  .footer__text {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    order: 2 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    font-size: 14px !important;
+    line-height: 1.4 !important;
+    color: #666666 !important;
+    text-align: center !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 20px !important;
+  }
+
+  /* Mobile New Card Button Specs */
+  .gallery__new-card-btn_location_footer {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 10px !important;
+
+    width: 170px !important;
+    max-width: 170px !important;
+    height: 44px !important;
+    border-radius: 8px !important;
+    padding: 12px 16px 14px 16px !important;
+
+    font-size: 16px !important;
+    font-weight: 700 !important;
+    background-color: rgba(204, 204, 204, 0.8) !important;
+    color: #1a1a1a !important;
+    border: none !important;
+    cursor: pointer !important;
+    box-sizing: border-box !important;
+    flex-shrink: 0 !important;
+    aspect-ratio: auto !important;
+  }
+
+  /* Mobile Practice Button Specs */
+  .gallery__practice-btn_location_footer {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 10px !important;
+
+    width: 170px !important;
+    max-width: 170px !important;
+    height: 44px !important;
+    border-radius: 8px !important;
+    padding: 12px 16px 14px 16px !important;
+
+    font-size: 16px !important;
+    font-weight: 700 !important;
+    background-color: rgba(26, 26, 26, 1) !important;
+    color: #ffffff !important;
+    border: none !important;
+    cursor: pointer !important;
+    box-sizing: border-box !important;
+    flex-shrink: 0 !important;
+    min-width: unset !important;
   }
 }

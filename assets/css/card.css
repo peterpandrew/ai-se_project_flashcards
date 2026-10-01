@@ -1,3 +1,20 @@
+.card {
+  position: relative;
+  width: 100%;
+  max-width: 325px;
+  aspect-ratio: 325 / 205;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow:
+    0px 2px 8px rgba(0, 0, 0, 0.1),
+    inset -1px 2px 2px rgba(255, 255, 255, 0.7),
+    inset 1px -1px 2px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
 .card__row {
   display: flex;
   justify-content: space-between;
@@ -13,6 +30,7 @@
   line-height: 1.2;
   margin: 0;
   color: #1a1a1a;
+  word-break: break-word;
 }
 
 .card__count {
@@ -28,25 +46,11 @@
   color: #1a1a1a;
   cursor: pointer;
   text-align: left;
+  transition: opacity 0.2s ease;
 }
 
-.card {
-  position: relative;
-  width: 100%;
-  max-width: 353px;
-  aspect-ratio: 353 / 205;
-  padding: 20px;
-  border-radius: 20px;
-
-  box-shadow:
-    0px 2px 8px rgba(0, 0, 0, 0.1),
-    inset -1px 2px 2px rgba(255, 255, 255, 0.7),
-    inset 1px -1px 2px rgba(0, 0, 0, 0.25);
-
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  box-sizing: border-box;
+.card__count:hover {
+  opacity: 0.7;
 }
 
 .card_color_green {
@@ -61,8 +65,27 @@
   background-color: #ee92d7;
 }
 
+.card_color_purple {
+  background-color: #aa8ef0;
+}
+
+.card_color_orange {
+  background-color: #ee955e;
+}
+
+.card_color_yellow {
+  background-color: #f5d770;
+}
+
 .card_color_white {
   background-color: #fff;
+}
+
+.flashcard__actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 }
 
 .card__btn {
@@ -77,6 +100,11 @@
   padding: 0;
   opacity: 0.5;
   cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.card__btn:hover {
+  opacity: 1;
 }
 
 .card__btn_type_delete {
@@ -85,4 +113,11 @@
 
 .card__btn_type_flip {
   background-image: url("../images/flip.svg");
+}
+
+@media (max-width: 600px) {
+  .card {
+    max-width: 353px;
+    aspect-ratio: 353 / 205;
+  }
 }
