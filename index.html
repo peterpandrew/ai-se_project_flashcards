@@ -23,8 +23,12 @@
       </h1>
       <nav class="nav">
         <ul class="nav__links">
-          <li><a href="#home" class="nav__link">My Decks</a></li>
-          <li><a href="#about" class="nav__link">About</a></li>
+          <li class="nav__item">
+            <a href="#home" class="nav__link">My Decks</a>
+          </li>
+          <li class="nav__item">
+            <a href="#about" class="nav__link">About</a>
+          </li>
         </ul>
       </nav>
     </header>
@@ -54,7 +58,7 @@
         </template>
 
         <ul class="gallery__list">
-          <li>
+          <li class="gallery__item">
             <button type="button" class="gallery__new-card-btn">
               + New Deck
             </button>
@@ -105,17 +109,17 @@
         </div>
 
         <template id="flashcard-template">
-          <li class="card flashcard">
+          <li class="flashcard">
             <p class="flashcard__text"></p>
             <div class="flashcard__actions">
               <button
                 type="button"
-                class="card__btn card__btn_type_delete flashcard__delete-btn"
+                class="flashcard__btn flashcard__btn_type_delete"
                 aria-label="Delete this flashcard"
               ></button>
               <button
                 type="button"
-                class="card__btn card__btn_type_flip flashcard__flip-btn"
+                class="flashcard__btn flashcard__btn_type_flip"
                 aria-label="Show answer"
               ></button>
             </div>
@@ -160,22 +164,14 @@
 
     <footer class="footer">
       <div class="footer__mobile-actions">
-        <button
-          type="button"
-          class="gallery__new-card-btn gallery__new-card-btn_location_footer"
-        >
-          + New Deck
+        <button type="button" class="footer__btn footer__btn_type_new-card">
+          + New Card
         </button>
-        <button
-          type="button"
-          class="gallery__practice-btn gallery__practice-btn_location_footer"
-        >
+        <button type="button" class="footer__btn footer__btn_type_practice">
           Practice
         </button>
       </div>
-      <p class="footer__text" style="display: block; color: #666666">
-        &copy; 2024 Flashcards Andrew Pan
-      </p>
+      <p class="footer__text">&copy; 2024 Flashcards Andrew Pan</p>
     </footer>
 
     <script type="module" src="assets/js/index.js"></script>
