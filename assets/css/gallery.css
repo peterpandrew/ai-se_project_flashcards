@@ -62,8 +62,7 @@ body {
 }
 
 /* DESKTOP / BASE BUTTON STYLES */
-.gallery__practice-btn,
-.gallery__practice-btn_location_footer {
+.gallery__practice-btn {
   appearance: none;
   -webkit-appearance: none;
   box-sizing: border-box;
@@ -81,8 +80,7 @@ body {
   text-align: center;
 }
 
-.gallery__practice-btn:hover,
-.gallery__practice-btn_location_footer:hover {
+.gallery__practice-btn:hover {
   background-color: #c5c5c5;
   color: #1a1a1a;
 }
@@ -103,8 +101,7 @@ body {
   box-sizing: border-box;
 }
 
-.gallery__new-card-btn,
-.gallery__new-card-btn_location_footer {
+.gallery__new-card-btn {
   appearance: none;
   -webkit-appearance: none;
   box-sizing: border-box;
@@ -124,8 +121,7 @@ body {
   aspect-ratio: 325 / 205;
 }
 
-.gallery__new-card-btn:hover,
-.gallery__new-card-btn_location_footer:hover {
+.gallery__new-card-btn:hover {
   background-color: #c5c5c5;
   color: #1a1a1a;
 }
@@ -239,18 +235,18 @@ body {
     box-sizing: border-box;
   }
 
-  .footer__mobile-actions_home .gallery__new-card-btn_location_footer {
+  .footer__mobile-actions_home .footer__btn_type_new-card {
     display: flex;
     width: 100%;
     max-width: 325px;
   }
 
-  .footer__mobile-actions_home .gallery__practice-btn_location_footer {
+  .footer__mobile-actions_home .footer__btn_type_practice {
     display: none;
   }
 
-  .footer__mobile-actions_deck .gallery__new-card-btn_location_footer,
-  .footer__mobile-actions_deck .gallery__practice-btn_location_footer {
+  .footer__mobile-actions_deck .footer__btn_type_new-card,
+  .footer__mobile-actions_deck .footer__btn_type_practice {
     display: flex;
     flex: 1;
     max-width: 160px;
@@ -258,8 +254,7 @@ body {
   }
 
   /* Mobile Overrides for Footer Buttons */
-  .gallery__new-card-btn_location_footer,
-  .gallery__practice-btn_location_footer {
+  .footer__btn {
     align-items: center;
     justify-content: center;
     height: 44px;
@@ -274,12 +269,12 @@ body {
     aspect-ratio: auto;
   }
 
-  .gallery__new-card-btn_location_footer {
+  .footer__btn_type_new-card {
     background-color: rgba(204, 204, 204, 0.8);
     color: #1a1a1a;
   }
 
-  .gallery__practice-btn_location_footer {
+  .footer__btn_type_practice {
     background-color: rgba(26, 26, 26, 1);
     color: #ffffff;
   }
