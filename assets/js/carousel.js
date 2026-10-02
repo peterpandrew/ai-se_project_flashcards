@@ -12,16 +12,35 @@ function renderCarouselView(deck) {
     deckView.hidden = true;
   }
 
-  if (!carousel || !deck) {
+  if (!carousel || !deck || !deck.cards || deck.cards.length === 0) {
     return;
   }
 
   const carouselTitle = carousel.querySelector(".carousel__title");
   const carouselCard = carousel.querySelector(".carousel__card");
   const carouselCardText = carousel.querySelector(".carousel__card-text");
-  const flipButton = carousel.querySelector(".carousel__btn_type_flip");
-  const leftButton = carousel.querySelector(".carousel__btn_type_left");
-  const rightButton = carousel.querySelector(".carousel__btn_type_right");
+
+  let leftBtn = carousel.querySelector(".carousel__btn_type_left");
+  let rightBtn = carousel.querySelector(".carousel__btn_type_right");
+  let flipBtn = carousel.querySelector(".carousel__btn_type_flip");
+
+  // Reset event listeners by cloning button nodes
+  if (leftBtn) {
+    const cleanLeft = leftBtn.cloneNode(true);
+    leftBtn.parentNode.replaceChild(cleanLeft, leftBtn);
+    leftBtn = cleanLeft;
+  }
+  if (rightBtn) {
+    const cleanRight = rightBtn.cloneNode(true);
+    rightBtn.parentNode.replaceChild(cleanRight, rightBtn);
+    rightBtn = cleanRight;
+  }
+  if (flipBtn) {
+    const cleanFlip = flipBtn.cloneNode(true);
+    flipBtn.parentNode.replaceChild(cleanFlip, flipBtn);
+    flipBtn = cleanFlip;
+  }
+
   let currentIndex = 0;
   let showingQuestion = true;
 
@@ -48,12 +67,12 @@ function renderCarouselView(deck) {
       carouselCardText.classList.add("carousel__card_color_white");
     }
 
-    if (leftButton) {
-      leftButton.classList.toggle("carousel__btn_disabled", currentIndex === 0);
+    if (leftBtn) {
+      leftBtn.classList.toggle("carousel__btn_disabled", currentIndex === 0);
     }
 
-    if (rightButton) {
-      rightButton.classList.toggle(
+    if (rightBtn) {
+      rightBtn.classList.toggle(
         "carousel__btn_disabled",
         currentIndex === deck.cards.length - 1,
       );
@@ -64,18 +83,18 @@ function renderCarouselView(deck) {
     carouselCard.dataset.deckId = deck.id;
   }
 
-  if (leftButton) {
-    leftButton.onclick = () => {
+  if (leftBtn) {
+    leftBtn.addEventListener("click", () => {
       if (currentIndex > 0) {
         currentIndex -= 1;
         showingQuestion = true;
         updateDisplay();
       }
-    };
+    });
   }
 
-  if (rightButton) {
-    rightButton.addEventListener("click", () => {
+  if (rightBtn) {
+    rightBtn.addEventListener("click", () => {
       if (currentIndex < deck.cards.length - 1) {
         currentIndex += 1;
         showingQuestion = true;
@@ -84,12 +103,12 @@ function renderCarouselView(deck) {
     });
   }
 
-  if (flipButton) {
-    flipButton.addEventListener("click", () => {
+  if (flipBtn) {
+    flipBtn.addEventListener("click", () => {
       showingQuestion = !showingQuestion;
       updateDisplay();
     });
-    flipButton.setAttribute("aria-label", "Flip card");
+    flipBtn.setAttribute("aria-label", "Flip card");
   }
 
   updateDisplay();

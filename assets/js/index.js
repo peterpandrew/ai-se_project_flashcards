@@ -19,9 +19,7 @@ const footer = document.querySelector(".footer");
 
 // Mobile Footer Elements
 const footerMobileActions = document.querySelector(".footer__mobile-actions");
-const footerPracticeBtn = document.querySelector(
-  ".gallery__practice-btn_location_footer",
-);
+const footerPracticeBtn = document.querySelector(".footer__btn_type_practice");
 
 const sections = [
   homeSection,
@@ -78,10 +76,11 @@ function createDeckEl(item) {
   deckCount.textContent = `${item.cards.length} cards`;
   deckCount.setAttribute("aria-label", `Open ${item.name} flashcard deck`);
 
+  // Direct deck card click routes to the practice carousel
   deckEl.addEventListener("click", (evt) => {
-    if (evt.target.classList.contains("card__btn_type_delete")) return;
+    if (evt.target.closest(".card__btn_type_delete")) return;
     currentDeck = item;
-    window.location.hash = `#deck/${item.id}`;
+    window.location.hash = `#carousel/${item.id}`;
   });
 
   deleteButton?.addEventListener("click", (evt) => {
@@ -98,14 +97,14 @@ function createDeckEl(item) {
 
 function renderDeckEl(item) {
   const deckEl = createDeckEl(item);
-  // Updated selector to look for new-deck button container
-  const newDeckBtnItem = deckList.querySelector(
-    "li:has(.gallery__new-deck-btn)",
-  );
+  // Safely find the parent li of the new deck button
+  const newDeckBtnItem = deckList
+    .querySelector(".gallery__new-card-btn")
+    ?.closest("li");
   if (newDeckBtnItem) {
     deckList.insertBefore(deckEl, newDeckBtnItem);
   } else {
-    deckList.prepend(deckEl);
+    deckList.appendChild(deckEl);
   }
 }
 
@@ -135,7 +134,7 @@ function renderView() {
   }
 
   if (currentHash.startsWith("#carousel")) {
-    const deckId = currentHash.split("/")[1] || decks[0]?.id;
+    const deckId = currentHash.split("/")[1] || currentDeck?.id || decks[0]?.id;
     const deck = decks.find((item) => item.id === deckId);
 
     if (!deck) {
@@ -146,6 +145,7 @@ function renderView() {
       return;
     }
 
+    currentDeck = deck;
     renderCarouselView(deck);
     mainContent?.classList.add("page__main-content_location_carousel");
     showView(carouselSection, "flex");
