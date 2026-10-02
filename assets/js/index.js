@@ -17,6 +17,7 @@ const mainContent = document.querySelector(".page__main-content");
 const header = document.querySelector(".header");
 const footer = document.querySelector(".footer");
 
+// Mobile Footer Elements
 const footerMobileActions = document.querySelector(".footer__mobile-actions");
 const footerPracticeBtn = document.querySelector(
   ".gallery__practice-btn_location_footer",
@@ -97,11 +98,12 @@ function createDeckEl(item) {
 
 function renderDeckEl(item) {
   const deckEl = createDeckEl(item);
-  const newCardBtnItem = deckList.querySelector(
-    "li:has(.gallery__new-card-btn)",
+  // Updated selector to look for new-deck button container
+  const newDeckBtnItem = deckList.querySelector(
+    "li:has(.gallery__new-deck-btn)",
   );
-  if (newCardBtnItem) {
-    deckList.insertBefore(deckEl, newCardBtnItem);
+  if (newDeckBtnItem) {
+    deckList.insertBefore(deckEl, newDeckBtnItem);
   } else {
     deckList.prepend(deckEl);
   }
