@@ -1,20 +1,36 @@
+/* GLOBAL PAGE LAYOUT & ANTI-OVERFLOW STYLES */
 html,
 body {
   height: 100%;
   margin: 0;
   padding: 0;
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
 }
 
 .page {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  width: 100%;
+  max-width: 100%;
   overflow-x: hidden;
   overflow-y: auto;
 }
 
 .page__main-content {
   flex: 1 0 auto;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .gallery {
@@ -22,6 +38,8 @@ body {
   flex-direction: column;
   gap: 40px;
   width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .gallery__header {
@@ -29,7 +47,9 @@ body {
   align-items: center;
   justify-content: space-between;
   width: 100%;
+  max-width: 100%;
   gap: 20px;
+  box-sizing: border-box;
 }
 
 .gallery__title {
@@ -37,9 +57,13 @@ body {
   font-weight: 700;
   line-height: 1.2;
   margin: 0;
+  max-width: 100%;
+  word-break: break-word;
 }
 
-.gallery__practice-btn {
+/* DESKTOP / BASE BUTTON STYLES */
+.gallery__practice-btn,
+.gallery__practice-btn_location_footer {
   appearance: none;
   -webkit-appearance: none;
   box-sizing: border-box;
@@ -57,7 +81,8 @@ body {
   text-align: center;
 }
 
-.gallery__practice-btn:hover {
+.gallery__practice-btn:hover,
+.gallery__practice-btn_location_footer:hover {
   background-color: #c5c5c5;
   color: #1a1a1a;
 }
@@ -74,10 +99,12 @@ body {
   gap: 20px;
   justify-content: start;
   width: 100%;
+  max-width: 100%;
   box-sizing: border-box;
 }
 
-.gallery__new-card-btn {
+.gallery__new-card-btn,
+.gallery__new-card-btn_location_footer {
   appearance: none;
   -webkit-appearance: none;
   box-sizing: border-box;
@@ -97,7 +124,8 @@ body {
   aspect-ratio: 325 / 205;
 }
 
-.gallery__new-card-btn:hover {
+.gallery__new-card-btn:hover,
+.gallery__new-card-btn_location_footer:hover {
   background-color: #c5c5c5;
   color: #1a1a1a;
 }
@@ -119,6 +147,7 @@ body {
   flex-direction: column;
   align-items: center;
   width: 100%;
+  max-width: 100%;
   padding: 20px;
   text-align: center;
   box-sizing: border-box;
@@ -132,35 +161,54 @@ body {
   margin: 0;
   font-size: 14px;
   color: #666666;
+  max-width: 100%;
+  word-break: break-word;
 }
 
 .footer__mobile-actions {
   display: none;
 }
 
+/* MOBILE STYLES (768px and smaller) */
 @media (max-width: 768px) {
   .gallery {
     gap: 20px;
+    padding: 0 16px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
   }
 
   .gallery__header {
     display: flex;
     justify-content: flex-start;
     width: 100%;
+    max-width: 100%;
   }
 
   .gallery__title {
-    font-size: 32px;
+    font-size: 28px;
+    word-break: break-word;
   }
 
   .gallery__list {
-    display: grid;
-    grid-template-columns: 1fr;
-    justify-items: center;
-    gap: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
     width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
   }
 
+  .card,
+  .gallery__list .card {
+    width: 100%;
+    max-width: 325px;
+    box-sizing: border-box;
+  }
+
+  /* Hide desktop buttons in header/list on mobile */
   .gallery__header .gallery__practice-btn,
   .gallery__list .gallery__new-card-btn {
     display: none;
@@ -174,6 +222,7 @@ body {
     gap: 16px;
     padding: 24px 16px 40px 16px;
     width: 100%;
+    max-width: 100%;
     box-sizing: border-box;
   }
 
@@ -184,15 +233,16 @@ body {
     align-items: center;
     gap: 10px;
     width: 100%;
-    max-width: 350px;
+    max-width: 100%;
     margin: 0;
     order: 1;
+    box-sizing: border-box;
   }
 
   .footer__mobile-actions_home .gallery__new-card-btn_location_footer {
     display: flex;
     width: 100%;
-    max-width: 350px;
+    max-width: 325px;
   }
 
   .footer__mobile-actions_home .gallery__practice-btn_location_footer {
@@ -202,23 +252,12 @@ body {
   .footer__mobile-actions_deck .gallery__new-card-btn_location_footer,
   .footer__mobile-actions_deck .gallery__practice-btn_location_footer {
     display: flex;
-    width: 170px;
-    max-width: 170px;
+    flex: 1;
+    max-width: 160px;
+    min-width: 0;
   }
 
-  .footer__text {
-    display: block;
-    visibility: visible;
-    opacity: 1;
-    order: 2;
-    margin: 0;
-    font-size: 14px;
-    line-height: 1.4;
-    color: #666666;
-    text-align: center;
-    width: 100%;
-  }
-
+  /* Mobile Overrides for Footer Buttons */
   .gallery__new-card-btn_location_footer,
   .gallery__practice-btn_location_footer {
     align-items: center;
@@ -231,7 +270,7 @@ body {
     border: none;
     cursor: pointer;
     box-sizing: border-box;
-    flex-shrink: 0;
+    flex-shrink: 1;
     aspect-ratio: auto;
   }
 
