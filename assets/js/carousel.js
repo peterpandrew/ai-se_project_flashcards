@@ -1,7 +1,7 @@
 import { hexToString, removeColorClasses } from "./colors.js";
 
 function getCarouselTitleString(deck, cardIndex) {
-  return `${deck.name} Deck - Card ${cardIndex + 1} of ${deck.cards.length}`;
+  return `${deck.name} · ${cardIndex + 1}/${deck.cards.length}`;
 }
 
 function renderCarouselView(deck) {
@@ -36,15 +36,16 @@ function renderCarouselView(deck) {
       carouselTitle.textContent = getCarouselTitleString(deck, currentIndex);
     }
 
+    const colorName = hexToString(deck.color) || "green";
+    removeColorClasses(carouselCard);
+    removeColorClasses(carouselCardText);
+
     if (showingQuestion) {
       carouselCardText.textContent = currentCard.question;
-      removeColorClasses(carouselCard);
-      const colorName = hexToString(deck.color) || "green";
       carouselCardText.classList.add(`carousel__card_color_${colorName}`);
     } else {
       carouselCardText.textContent = currentCard.answer;
-      removeColorClasses(carouselCard);
-      carouselCard.classList.add("carousel__card_color_white");
+      carouselCardText.classList.add("carousel__card_color_white");
     }
 
     if (leftButton) {
@@ -60,20 +61,17 @@ function renderCarouselView(deck) {
   }
 
   if (carouselCard) {
-    const colorName = hexToString(deck.color) || "green";
-    removeColorClasses(carouselCard);
-    carouselCard.classList.add(`carousel__card_color_${colorName}`);
     carouselCard.dataset.deckId = deck.id;
   }
 
   if (leftButton) {
-    leftButton.addEventListener("click", () => {
+    leftButton.onclick = () => {
       if (currentIndex > 0) {
         currentIndex -= 1;
         showingQuestion = true;
         updateDisplay();
       }
-    });
+    };
   }
 
   if (rightButton) {
