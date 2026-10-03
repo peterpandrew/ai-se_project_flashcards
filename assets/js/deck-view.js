@@ -11,8 +11,7 @@ function renderDeckView(deck) {
     return;
   }
 
-  console.log("Rendering deck view:", deck);
-  deckViewTitle.textContent = deck.name;
+  deckViewTitle.textContent = deck.name || "Untitled Deck";
   deckViewList.innerHTML = "";
 
   const colorName = hexToString(deck.color) || "green";
@@ -20,22 +19,32 @@ function renderDeckView(deck) {
   function createCard(cardData) {
     const cardFragment = cardTemplate.content.cloneNode(true);
     const cardElement = cardFragment.querySelector(".flashcard");
-    const cardText = cardFragment.querySelector(".flashcard__text");
-    const flipButton = cardFragment.querySelector(".flashcard__flip-btn");
-    const deleteButton = cardFragment.querySelector(".flashcard__delete-btn");
+
+    if (!cardElement) return null;
+
+    const cardText = cardElement.querySelector(".flashcard__text");
+    const flipButton = cardElement.querySelector(".flashcard__btn_type_flip");
+    const deleteButton = cardElement.querySelector(
+      ".flashcard__btn_type_delete",
+    );
+
     let showingQuestion = true;
 
     function updateFace() {
-      cardText.textContent = showingQuestion
-        ? cardData.question
-        : cardData.answer;
+      if (cardText) {
+        cardText.textContent = showingQuestion
+          ? cardData.question
+          : cardData.answer;
+      }
+
+      // Preserve the deck's color when flipped
       removeColorClasses(cardElement);
-      cardElement.classList.add(
-        `card_color_${showingQuestion ? colorName : "white"}`,
-      );
+      cardElement.classList.add("flashcard", "card", `card_color_${colorName}`);
     }
 
-    flipButton.addEventListener("click", () => {
+    // Flip Button Listener
+    flipButton?.addEventListener("click", (evt) => {
+      evt.stopPropagation();
       showingQuestion = !showingQuestion;
       flipButton.setAttribute(
         "aria-label",
@@ -44,24 +53,30 @@ function renderDeckView(deck) {
       updateFace();
     });
 
-    deleteButton?.addEventListener("click", () => {
+    // Delete Button Listener
+    deleteButton?.addEventListener("click", (evt) => {
+      evt.stopPropagation();
       openConfirmationModal(() => {
-        const cardIndex = deck.cards.indexOf(cardData);
-        if (cardIndex !== -1) deck.cards.splice(cardIndex, 1);
+        if (Array.isArray(deck.cards)) {
+          const cardIndex = deck.cards.indexOf(cardData);
+          if (cardIndex !== -1) deck.cards.splice(cardIndex, 1);
+        }
         cardElement.remove();
       });
     });
 
     updateFace();
-    return cardFragment;
+    return cardElement;
   }
 
-  function renderCard(cardData) {
-    const cardElement = createCard(cardData);
-    deckViewList.append(cardElement);
+  if (Array.isArray(deck.cards)) {
+    deck.cards.forEach((cardData) => {
+      const cardEl = createCard(cardData);
+      if (cardEl) {
+        deckViewList.append(cardEl);
+      }
+    });
   }
-
-  deck.cards.forEach(renderCard);
 }
 
 export { renderDeckView };

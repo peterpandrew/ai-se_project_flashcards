@@ -62,25 +62,32 @@ practiceButton?.addEventListener("click", startPractice);
 footerPracticeBtn?.addEventListener("click", startPractice);
 
 function createDeckEl(item) {
+  if (!deckTemplate) return null;
+
   const deckClone = deckTemplate.content.cloneNode(true);
   const deckEl = deckClone.querySelector(".card");
-  const deckTitle = deckClone.querySelector(".card__title");
-  const deckCount = deckClone.querySelector(".card__count");
-  const deleteButton = deckClone.querySelector(".card__btn_type_delete");
+
+  if (!deckEl) return null;
+
+  const deckTitle = deckEl.querySelector(".card__title");
+  const deckCount = deckEl.querySelector(".card__count");
+  const deleteButton = deckEl.querySelector(".card__btn_type_delete");
   const colorName = hexToString(item.color) || "green";
 
   removeColorClasses(deckEl);
-  deckEl.classList.add(`card_color_${colorName}`);
+  deckEl.classList.add("card", `card_color_${colorName}`);
 
-  deckTitle.textContent = item.name;
-  deckCount.textContent = `${item.cards.length} cards`;
-  deckCount.setAttribute("aria-label", `Open ${item.name} flashcard deck`);
+  if (deckTitle) deckTitle.textContent = item.name;
+  if (deckCount) {
+    deckCount.textContent = `${item.cards.length} cards`;
+    deckCount.setAttribute("aria-label", `Open ${item.name} flashcard deck`);
+  }
 
-  // Direct deck card click routes to the practice carousel
+  // Clicking on the deck navigates to deck view (#deck/:id)
   deckEl.addEventListener("click", (evt) => {
     if (evt.target.closest(".card__btn_type_delete")) return;
     currentDeck = item;
-    window.location.hash = `#carousel/${item.id}`;
+    window.location.hash = `#deck/${item.id}`;
   });
 
   deleteButton?.addEventListener("click", (evt) => {
@@ -92,15 +99,17 @@ function createDeckEl(item) {
     });
   });
 
-  return deckClone;
+  return deckEl;
 }
 
 function renderDeckEl(item) {
   const deckEl = createDeckEl(item);
-  // Safely find the parent li of the new deck button
+  if (!deckEl || !deckList) return;
+
   const newDeckBtnItem = deckList
     .querySelector(".gallery__new-card-btn")
     ?.closest("li");
+
   if (newDeckBtnItem) {
     deckList.insertBefore(deckEl, newDeckBtnItem);
   } else {
@@ -116,7 +125,7 @@ function renderView() {
     currentHash.startsWith("#deck/")
   ) {
     const deckId = currentHash.split("/")[1] || decks[0]?.id;
-    const deck = decks.find((item) => item.id === deckId);
+    const deck = decks.find((item) => String(item.id) === String(deckId));
 
     if (!deck) {
       updateMobileFooter("home");
@@ -135,7 +144,7 @@ function renderView() {
 
   if (currentHash.startsWith("#carousel")) {
     const deckId = currentHash.split("/")[1] || currentDeck?.id || decks[0]?.id;
-    const deck = decks.find((item) => item.id === deckId);
+    const deck = decks.find((item) => String(item.id) === String(deckId));
 
     if (!deck) {
       if (header) header.hidden = false;
