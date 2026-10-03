@@ -1,10 +1,13 @@
-.card {
+/* Card Base Styling */
+.card,
+.flashcard {
   position: relative;
   width: 100%;
   max-width: 325px;
   aspect-ratio: 325 / 205;
   padding: 20px;
   border-radius: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
   box-shadow:
     0px 2px 8px rgba(0, 0, 0, 0.1),
     inset -1px 2px 2px rgba(255, 255, 255, 0.7),
@@ -53,6 +56,7 @@
   opacity: 0.7;
 }
 
+/* Color Modifier Classes */
 .card_color_green {
   background-color: #64d583;
 }
@@ -78,7 +82,17 @@
 }
 
 .card_color_white {
-  background-color: #fff;
+  background-color: #ffffff;
+}
+
+/* Flashcard Action Layout & Text */
+.flashcard__text {
+  font-family: "Inter", sans-serif;
+  font-size: 18px;
+  line-height: 1.3;
+  margin: 0;
+  color: #1a1a1a;
+  word-break: break-word;
 }
 
 .flashcard__actions {
@@ -88,35 +102,42 @@
   width: 100%;
 }
 
-.card__btn {
+/* Shared Button Styles */
+.card__btn,
+.flashcard__btn {
   display: block;
   width: 24px;
   height: 24px;
   z-index: 2;
   border: none;
-  background: transparent;
+  background-color: transparent;
   background-repeat: no-repeat;
   background-position: center;
+  background-size: contain;
   padding: 0;
   opacity: 0.5;
   cursor: pointer;
   transition: opacity 0.2s ease;
 }
 
-.card__btn:hover {
+.card__btn:hover,
+.flashcard__btn:hover {
   opacity: 1;
 }
 
-.card__btn_type_delete {
+.card__btn_type_delete,
+.flashcard__btn_type_delete {
   background-image: url("../images/delete.svg");
 }
 
-.card__btn_type_flip {
+.card__btn_type_flip,
+.flashcard__btn_type_flip {
   background-image: url("../images/flip.svg");
 }
 
 @media (max-width: 600px) {
-  .card {
+  .card,
+  .flashcard {
     max-width: 353px;
     aspect-ratio: 353 / 205;
   }
