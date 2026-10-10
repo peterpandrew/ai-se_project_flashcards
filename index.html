@@ -66,6 +66,120 @@
         </ul>
       </section>
 
+      <section class="new-deck-view" id="new-deck-view" hidden>
+        <h2 class="new-deck-view__title">New Deck</h2>
+        <form class="new-deck-view__form" id="new-deck-form">
+          <fieldset class="new-deck-view__colors">
+            <legend class="new-deck-view__label">Pick the deck color</legend>
+            <label class="new-deck-view__color-option" for="green">
+              <input
+                class="new-deck-view__color-input"
+                type="radio"
+                id="green"
+                name="deck-color"
+                value="#64d583"
+                aria-label="Green"
+                checked
+              />
+              <span
+                class="new-deck-view__swatch new-deck-view__swatch_color_green"
+                aria-hidden="true"
+              ></span>
+              <span class="new-deck-view__visually-hidden">Green</span>
+            </label>
+            <label class="new-deck-view__color-option" for="blue">
+              <input
+                class="new-deck-view__color-input"
+                type="radio"
+                id="blue"
+                name="deck-color"
+                value="#91a8f9"
+                aria-label="Blue"
+              />
+              <span
+                class="new-deck-view__swatch new-deck-view__swatch_color_blue"
+                aria-hidden="true"
+              ></span>
+              <span class="new-deck-view__visually-hidden">Blue</span>
+            </label>
+            <label class="new-deck-view__color-option" for="orange">
+              <input
+                class="new-deck-view__color-input"
+                type="radio"
+                id="orange"
+                name="deck-color"
+                value="#ee955e"
+                aria-label="Orange"
+              />
+              <span
+                class="new-deck-view__swatch new-deck-view__swatch_color_orange"
+                aria-hidden="true"
+              ></span>
+              <span class="new-deck-view__visually-hidden">Orange</span>
+            </label>
+            <label class="new-deck-view__color-option" for="pink">
+              <input
+                class="new-deck-view__color-input"
+                type="radio"
+                id="pink"
+                name="deck-color"
+                value="#ee92d7"
+                aria-label="Pink"
+              />
+              <span
+                class="new-deck-view__swatch new-deck-view__swatch_color_pink"
+                aria-hidden="true"
+              ></span>
+              <span class="new-deck-view__visually-hidden">Pink</span>
+            </label>
+            <label class="new-deck-view__color-option" for="purple">
+              <input
+                class="new-deck-view__color-input"
+                type="radio"
+                id="purple"
+                name="deck-color"
+                value="#aa8ef0"
+                aria-label="Purple"
+              />
+              <span
+                class="new-deck-view__swatch new-deck-view__swatch_color_purple"
+                aria-hidden="true"
+              ></span>
+              <span class="new-deck-view__visually-hidden">Purple</span>
+            </label>
+            <label class="new-deck-view__color-option" for="yellow">
+              <input
+                class="new-deck-view__color-input"
+                type="radio"
+                id="yellow"
+                name="deck-color"
+                value="#f5d770"
+                aria-label="Yellow"
+              />
+              <span
+                class="new-deck-view__swatch new-deck-view__swatch_color_yellow"
+                aria-hidden="true"
+              ></span>
+              <span class="new-deck-view__visually-hidden">Yellow</span>
+            </label>
+          </fieldset>
+          <label class="new-deck-view__field" for="new-deck-json">
+            Write the JSON arrray of cards so that it matches this schema
+            <textarea
+              class="new-deck-view__textarea"
+              id="new-deck-json"
+              name="deck-json"
+              rows="10"
+              placeholder="Paste deck JSON here"
+              spellcheck="false"
+            ></textarea>
+          </label>
+          <button class="new-deck-view__submit" type="submit" disabled>
+            Create Deck
+          </button>
+        </form>
+      </section>
+
       <section class="carousel" id="carousel">
         <h2 class="carousel__title"></h2>
         <div class="carousel__container">
