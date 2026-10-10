@@ -6,7 +6,12 @@ import { openConfirmationModal } from "./confirmation-modal.js";
 
 const deckTemplate = document.querySelector("#card-template");
 const deckList = document.querySelector("#home .gallery__list");
+const newDeckButton = document.querySelector("#home .gallery__new-card-btn");
+const footerNewDeckButton = document.querySelector(
+  ".footer__btn_type_new-card",
+);
 const homeSection = document.querySelector("#home");
+const newDeckSection = document.querySelector("#new-deck-view");
 const deckViewSection = document.querySelector("#deck-view");
 const practiceButton = deckViewSection?.querySelector(".gallery__practice-btn");
 let currentDeck = null;
@@ -23,6 +28,7 @@ const footerPracticeBtn = document.querySelector(".footer__btn_type_practice");
 
 const sections = [
   homeSection,
+  newDeckSection,
   deckViewSection,
   carouselSection,
   aboutSection,
@@ -117,6 +123,13 @@ function renderDeckEl(item) {
   }
 }
 
+function openNewDeckView() {
+  window.location.hash = "#new-deck";
+}
+
+newDeckButton?.addEventListener("click", openNewDeckView);
+footerNewDeckButton?.addEventListener("click", openNewDeckView);
+
 function renderView() {
   const currentHash = window.location.hash || "#home";
 
@@ -169,9 +182,11 @@ function renderView() {
   const targetSection =
     currentHash === "#home"
       ? homeSection
-      : currentHash === "#about"
-        ? aboutSection
-        : notFoundSection;
+      : currentHash === "#new-deck" || currentHash === "#new-deck-view"
+        ? newDeckSection
+        : currentHash === "#about"
+          ? aboutSection
+          : notFoundSection;
 
   showView(targetSection, "block");
   updateMobileFooter("home");
@@ -182,7 +197,13 @@ if (deckTemplate && deckList) {
   decks.forEach(renderDeckEl);
 }
 
-if (homeSection && carouselSection && aboutSection && notFoundSection) {
+if (
+  homeSection &&
+  newDeckSection &&
+  carouselSection &&
+  aboutSection &&
+  notFoundSection
+) {
   window.addEventListener("hashchange", renderView);
   window.addEventListener("DOMContentLoaded", renderView);
 }
