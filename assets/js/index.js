@@ -3,6 +3,7 @@ import { hexToString, removeColorClasses } from "./colors.js";
 import { renderCarouselView } from "./carousel.js";
 import { renderDeckView } from "./deck-view.js";
 import { openConfirmationModal } from "./confirmation-modal.js";
+import { disableSubmitBtn } from "./new-deck-view.js";
 
 const deckTemplate = document.querySelector("#card-template");
 const deckList = document.querySelector("#home .gallery__list");
@@ -187,6 +188,10 @@ function renderView() {
         : currentHash === "#about"
           ? aboutSection
           : notFoundSection;
+
+  if (currentHash === "#new-deck" || currentHash === "#new-deck-view") {
+    disableSubmitBtn();
+  }
 
   showView(targetSection, "block");
   updateMobileFooter("home");
