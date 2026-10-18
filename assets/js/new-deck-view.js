@@ -7,9 +7,7 @@ const form = document.querySelector("#new-deck-form");
 const submitBtn = form?.querySelector(".new-deck-view__submit");
 const textarea = form?.querySelector(".new-deck-view__textarea");
 const errorModal = document.querySelector("#error-modal");
-const errorModalCloseButton = errorModal?.querySelector(
-  ".modal__close-button",
-);
+const errorModalCloseButton = errorModal?.querySelector(".modal__close-button");
 const errorModalMessage = errorModal?.querySelector(".modal__error");
 
 errorModalCloseButton?.addEventListener("click", () => {
@@ -123,8 +121,12 @@ form?.addEventListener("submit", (e) => {
     color: colorValue,
   })
     .then((newDeck) => {
-      fetchedDecks.push(newDeck);
-      window.location.hash = `deck/${newDeck._id}`;
+      const deck = {
+        ...newDeck,
+        cards: newDeck.cards?.length ? newDeck.cards : jsonData.cards,
+      };
+      fetchedDecks.push(deck);
+      window.location.hash = `deck/${deck._id}`;
     })
     .catch(showError);
 });
