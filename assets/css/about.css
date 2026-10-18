@@ -2,12 +2,63 @@
 .not-found {
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
-  min-height: 200px;
-  width: 100%;
+  position: relative;
+  width: 1440px;
+  height: 800px;
+  min-height: 800px;
+  margin: 0 auto;
   box-sizing: border-box;
+  opacity: 1;
+}
+
+/* Inner wrapper for text and code block */
+.about__container,
+.not-found__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+/* Footer Implementation (Forced Left-Aligned) */
+.footer {
+  position: absolute;
+  top: 720px;
+  left: 0;
+  width: 1440px;
+  height: 80px;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 20px;
+  padding: 32px 40px !important;
+  box-sizing: border-box;
+  opacity: 1;
+}
+
+.footer__text {
+  margin: 0 !important;
+  text-align: left !important;
+}
+
+/* Header / Menu Implementation */
+.header {
+  position: absolute;
+  top: 20px;
+  left: 40px;
+  width: 1360px;
+  height: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  opacity: 1;
 }
 
 .about__title,
@@ -19,11 +70,13 @@
   font-size: 40px;
   line-height: 1.2;
   color: #1a1a1a;
+  text-align: center;
+  width: 100%;
 }
 
 .about__text,
 .not-found__text {
-  margin: 0;
+  margin: 0 auto;
   font-family: "Inter", sans-serif;
   font-style: normal;
   font-weight: 400;
@@ -31,13 +84,58 @@
   line-height: 1.5;
   color: #1a1a1a;
   max-width: 680px;
+  width: 100%;
+  text-align: center;
+}
+
+.about__code {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 16px;
+  overflow-x: auto;
+  border-radius: 8px;
+  background-color: #f4f4f4;
+  font-size: 14px;
+  line-height: 1.5;
+  text-align: left;
+}
+
+@media (max-width: 1440px) {
+  .about,
+  .not-found {
+    width: 100%;
+  }
 }
 
 @media (max-width: 600px) {
   .about,
   .not-found {
-    padding: 0;
+    width: 100%;
+    height: auto;
+    padding: 20px;
+  }
+
+  .about__container,
+  .not-found__container {
     gap: 16px;
+  }
+
+  .footer,
+  .header {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: 100%;
+  }
+
+  .footer {
+    justify-content: center !important;
+  }
+
+  .footer__text {
+    text-align: center !important;
   }
 
   .about__title,
