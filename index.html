@@ -209,11 +209,24 @@
       </section>
 
       <section class="about" id="about" hidden>
-        <h2 class="about__title">About</h2>
+        <h2 class="about__title">About the Flash Cards App</h2>
         <p class="about__text">
           Flash Cards is a study app for reviewing deck contents and mastering
           concepts.
         </p>
+        <p class="about__text">
+          Create a deck by entering its name and cards as JSON:
+        </p>
+        <pre class="about__code"><code>{
+  "name": "Command Line",
+  "cards": [
+    { "question": "What command prints the current working directory?", "answer": "pwd" },
+    { "question": "What command lists the files in the current directory?", "answer": "ls" },
+    { "question": "What command moves you up one directory level?", "answer": "cd .." },
+    { "question": "What command creates a new directory?", "answer": "mkdir" },
+    { "question": "What command removes a file?", "answer": "rm" }
+  ]
+}</code></pre>
       </section>
 
       <section id="deck-view" class="gallery">
@@ -284,12 +297,7 @@
       aria-labelledby="error-modal-title"
     >
       <div class="modal__container">
-        <button
-          class="modal__close-button"
-          type="button"
-        >
-          Dismiss
-        </button>
+        <button class="modal__close-button" type="button">Dismiss</button>
         <h2 class="modal__title" id="error-modal-title">Error</h2>
         <p class="modal__error"></p>
       </div>
