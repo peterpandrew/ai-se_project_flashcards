@@ -1,9 +1,10 @@
-import { decks } from "./decks.js";
+import { fetchedDecks, getDeckByID } from "./decks.js";
 import { hexToString, removeColorClasses } from "./colors.js";
 import { renderCarouselView } from "./carousel.js";
 import { renderDeckView } from "./deck-view.js";
 import { openConfirmationModal } from "./confirmation-modal.js";
-import { disableSubmitBtn } from "./new-deck-view.js";
+import { disableSubmitBtn, showError } from "./new-deck-view.js";
+import { getDecks, deleteDeck } from "./api.js";
 
 const deckTemplate = document.querySelector("#card-template");
 const deckList = document.querySelector("#home .gallery__list");
@@ -36,6 +37,13 @@ const sections = [
   notFoundSection,
 ].filter(Boolean);
 
+/**
+ * Displays one view section and hides the other registered sections.
+ *
+ * @param {HTMLElement|null} currentSection - The section to display.
+ * @param {string} display - The CSS display value for the active section.
+ * @returns {void}
+ */
 function showView(currentSection, display) {
   sections.forEach((section) => {
     section.style.display = "";
@@ -47,6 +55,12 @@ function showView(currentSection, display) {
   }
 }
 
+/**
+ * Updates the mobile footer's classes for the current view mode.
+ *
+ * @param {string} viewMode - "deck" to show deck actions, otherwise home actions.
+ * @returns {void}
+ */
 function updateMobileFooter(viewMode) {
   if (!footerMobileActions) return;
 
@@ -59,15 +73,26 @@ function updateMobileFooter(viewMode) {
   }
 }
 
+/**
+ * Navigates to practice mode for the currently selected deck.
+ *
+ * @returns {void}
+ */
 function startPractice() {
   if (currentDeck) {
-    window.location.hash = `#carousel/${currentDeck.id}`;
+    window.location.hash = `#carousel/${currentDeck._id}`;
   }
 }
 
 practiceButton?.addEventListener("click", startPractice);
 footerPracticeBtn?.addEventListener("click", startPractice);
 
+/**
+ * Creates a deck list item and attaches its navigation and delete actions.
+ *
+ * @param {object} item - The deck represented by the element.
+ * @returns {HTMLElement|null} The deck element, or null if its template is invalid.
+ */
 function createDeckEl(item) {
   if (!deckTemplate) return null;
 
@@ -94,21 +119,31 @@ function createDeckEl(item) {
   deckEl.addEventListener("click", (evt) => {
     if (evt.target.closest(".card__btn_type_delete")) return;
     currentDeck = item;
-    window.location.hash = `#deck/${item.id}`;
+    window.location.hash = `#deck/${item._id}`;
   });
 
   deleteButton?.addEventListener("click", (evt) => {
     evt.stopPropagation();
     openConfirmationModal(() => {
-      const deckIndex = decks.indexOf(item);
-      if (deckIndex !== -1) decks.splice(deckIndex, 1);
-      deckEl.remove();
+      deleteDeck(item._id)
+        .then(() => {
+          const deckIndex = fetchedDecks.indexOf(item);
+          if (deckIndex !== -1) fetchedDecks.splice(deckIndex, 1);
+          deckEl.remove();
+        })
+        .catch(showError);
     });
   });
 
   return deckEl;
 }
 
+/**
+ * Adds a rendered deck element to the home deck list.
+ *
+ * @param {object} item - The deck to render and add.
+ * @returns {void}
+ */
 function renderDeckEl(item) {
   const deckEl = createDeckEl(item);
   if (!deckEl || !deckList) return;
@@ -124,6 +159,11 @@ function renderDeckEl(item) {
   }
 }
 
+/**
+ * Navigates to the new-deck view.
+ *
+ * @returns {void}
+ */
 function openNewDeckView() {
   window.location.hash = "#new-deck";
 }
@@ -131,15 +171,20 @@ function openNewDeckView() {
 newDeckButton?.addEventListener("click", openNewDeckView);
 footerNewDeckButton?.addEventListener("click", openNewDeckView);
 
-function renderView() {
+/**
+ * Displays the view corresponding to the current URL hash.
+ *
+ * @returns {void}
+ */
+function router() {
   const currentHash = window.location.hash || "#home";
 
   if (
     currentHash.startsWith("#deck-view") ||
     currentHash.startsWith("#deck/")
   ) {
-    const deckId = currentHash.split("/")[1] || decks[0]?.id;
-    const deck = decks.find((item) => String(item.id) === String(deckId));
+    const deckId = currentHash.split("/")[1] || fetchedDecks[0]?._id;
+    const deck = getDeckByID(deckId);
 
     if (!deck) {
       updateMobileFooter("home");
@@ -157,8 +202,9 @@ function renderView() {
   }
 
   if (currentHash.startsWith("#carousel")) {
-    const deckId = currentHash.split("/")[1] || currentDeck?.id || decks[0]?.id;
-    const deck = decks.find((item) => String(item.id) === String(deckId));
+    const deckId =
+      currentHash.split("/")[1] || currentDeck?._id || fetchedDecks[0]?._id;
+    const deck = getDeckByID(deckId);
 
     if (!deck) {
       if (header) header.hidden = false;
@@ -197,11 +243,6 @@ function renderView() {
   updateMobileFooter("home");
 }
 
-if (deckTemplate && deckList) {
-  deckList.querySelectorAll(".card").forEach((el) => el.remove());
-  decks.forEach(renderDeckEl);
-}
-
 if (
   homeSection &&
   newDeckSection &&
@@ -209,6 +250,20 @@ if (
   aboutSection &&
   notFoundSection
 ) {
-  window.addEventListener("hashchange", renderView);
-  window.addEventListener("DOMContentLoaded", renderView);
+  window.addEventListener("DOMContentLoaded", () => {
+    if (deckList) {
+      deckList.querySelectorAll(".card").forEach((el) => el.remove());
+    }
+    window.addEventListener("hashchange", router);
+
+    getDecks()
+      .then((decks) => {
+        fetchedDecks.push(...decks);
+        decks.forEach(renderDeckEl);
+      })
+      .catch(showError)
+      .finally(() => {
+        router();
+      });
+  });
 }

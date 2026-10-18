@@ -1,6 +1,12 @@
 import { hexToString, removeColorClasses } from "./colors.js";
 import { openConfirmationModal } from "./confirmation-modal.js";
 
+/**
+ * Renders a deck's flashcards and their flip and delete controls.
+ *
+ * @param {object} deck - The deck to render.
+ * @returns {void}
+ */
 function renderDeckView(deck) {
   const deckViewSection = document.querySelector("#deck-view");
   const deckViewTitle = deckViewSection?.querySelector(".gallery__title");
@@ -16,6 +22,12 @@ function renderDeckView(deck) {
 
   const colorName = hexToString(deck.color) || "green";
 
+  /**
+   * Creates a flashcard element with its interactive controls.
+   *
+   * @param {object} cardData - The question-and-answer data for the card.
+   * @returns {HTMLElement|null} The created card element, or null if the template is invalid.
+   */
   function createCard(cardData) {
     const cardFragment = cardTemplate.content.cloneNode(true);
     const cardElement = cardFragment.querySelector(".flashcard");
@@ -30,6 +42,11 @@ function renderDeckView(deck) {
 
     let showingQuestion = true;
 
+    /**
+     * Updates the card text and reapplies its deck color.
+     *
+     * @returns {void}
+     */
     function updateFace() {
       if (cardText) {
         cardText.textContent = showingQuestion

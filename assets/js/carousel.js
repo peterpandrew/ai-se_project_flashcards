@@ -1,9 +1,22 @@
 import { hexToString, removeColorClasses } from "./colors.js";
 
+/**
+ * Formats the title for the current position in a deck's carousel.
+ *
+ * @param {object} deck - The deck being practiced.
+ * @param {number} cardIndex - The zero-based index of the displayed card.
+ * @returns {string} The deck name and one-based card position.
+ */
 function getCarouselTitleString(deck, cardIndex) {
   return `${deck.name} · ${cardIndex + 1}/${deck.cards.length}`;
 }
 
+/**
+ * Renders an interactive practice carousel for a deck.
+ *
+ * @param {object} deck - The deck whose cards should be practiced.
+ * @returns {void}
+ */
 function renderCarouselView(deck) {
   const carousel = document.querySelector(".carousel");
   const deckView = document.querySelector("#deck-view");
@@ -44,6 +57,11 @@ function renderCarouselView(deck) {
   let currentIndex = 0;
   let showingQuestion = true;
 
+  /**
+   * Updates the displayed card face, title, and navigation button states.
+   *
+   * @returns {void}
+   */
   function updateDisplay() {
     const currentCard = deck.cards[currentIndex];
 
@@ -80,7 +98,7 @@ function renderCarouselView(deck) {
   }
 
   if (carouselCard) {
-    carouselCard.dataset.deckId = deck.id;
+    carouselCard.dataset.deckId = deck._id;
   }
 
   if (leftBtn) {

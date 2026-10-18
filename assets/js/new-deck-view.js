@@ -1,4 +1,5 @@
-import { decks } from "./decks.js";
+import { fetchedDecks } from "./decks.js";
+import { addDeck } from "./api.js";
 
 const HEX_DIGITS = /^[0-9a-fA-F]{6}$/;
 
@@ -15,6 +16,12 @@ errorModalCloseButton?.addEventListener("click", () => {
   errorModal?.classList.remove("modal_visible");
 });
 
+/**
+ * Displays an error message in the error modal.
+ *
+ * @param {string} message - The message to display.
+ * @returns {void}
+ */
 function showError(message) {
   if (!errorModal || !errorModalMessage) {
     throw new Error("Error modal elements were not found.");
@@ -23,6 +30,12 @@ function showError(message) {
   errorModal.classList.add("modal_visible");
 }
 
+/**
+ * Validates a deck name against the supported length limits.
+ *
+ * @param {*} name - The value to validate.
+ * @returns {string|null} The valid name, or null if it is invalid.
+ */
 function validateName(name) {
   if (typeof name !== "string" || name.length < 2 || name.length > 80) {
     return null;
@@ -30,28 +43,18 @@ function validateName(name) {
   return name;
 }
 
+/**
+ * Parses a JSON string, returning null when parsing fails.
+ *
+ * @param {string} jsonString - The JSON text to parse.
+ * @returns {unknown} The parsed value, or null if parsing fails.
+ */
 function parseJSON(jsonString) {
   try {
     return JSON.parse(jsonString);
   } catch {
     return null;
   }
-}
-
-/**
- * Converts a string to a URL-safe slug: lowercase with any run of
- * non-alphanumeric characters replaced by a single hyphen, and no leading or
- * trailing hyphens.
- *
- * @param {string} str
- * @returns {string}
- */
-function slugify(str) {
-  return str
-    .toLowerCase()
-    .trim()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "");
 }
 
 /**
@@ -69,6 +72,11 @@ function normalizeColor(color) {
   return "#" + hex.toLowerCase();
 }
 
+/**
+ * Enables the new-deck form's submit button.
+ *
+ * @returns {void}
+ */
 function disableSubmitBtn() {
   if (submitBtn) {
     submitBtn.disabled = false;
@@ -109,16 +117,16 @@ form?.addEventListener("submit", (e) => {
     return;
   }
 
-  const id = `${slugify(name)}-${Date.now()}`;
-
-  decks.push({
-    id,
-    color: colorValue,
+  addDeck({
     name,
     cards: jsonData.cards,
-  });
-
-  window.location.hash = `#deck/${id}`;
+    color: colorValue,
+  })
+    .then((newDeck) => {
+      fetchedDecks.push(newDeck);
+      window.location.hash = `deck/${newDeck._id}`;
+    })
+    .catch(showError);
 });
 
-export { disableSubmitBtn };
+export { disableSubmitBtn, showError };
